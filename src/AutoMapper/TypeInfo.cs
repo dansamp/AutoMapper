@@ -67,12 +67,13 @@ namespace AutoMapper
         private MemberInfo[] BuildPublicReadAccessors(IEnumerable<MemberInfo> allMembers)
         {
             // Multiple types may define the same property (e.g. the class and multiple interfaces) - filter this to one of those properties
-            var filteredMembers = allMembers
+            var memberInfos = allMembers as MemberInfo[] ?? allMembers.ToArray();
+
+            var filteredMembers = memberInfos
                 .OfType<PropertyInfo>()
                 .GroupBy(x => x.Name) // group properties of the same name together
                 .Select(x => x.First())
-                .OfType<MemberInfo>() // cast back to MemberInfo so we can add back FieldInfo objects
-                .Concat(allMembers.Where(x => x is FieldInfo));  // add FieldInfo objects back
+                .Concat(memberInfos.OfType<FieldInfo>().Cast<MemberInfo>());  // add FieldInfo objects back
 
             return filteredMembers.ToArray();
         }
@@ -138,8 +139,13 @@ namespace AutoMapper
 
         private MethodInfo[] BuildPublicNoArgMethods()
         {
-            return Type.GetMethods(BindingFlags.Public | BindingFlags.Instance)
-                .Where(m => (m.ReturnType != typeof(void)) && (m.GetParameters().Length == 0) && (m.MemberType == MemberTypes.Method))
+            return Type
+                .GetRuntimeMethods()
+                .Where(m => !m.IsStatic)
+                .Where(m => m.ReturnType != typeof(void))
+                .Where(m => m.GetParameters().Length == 0)
+                .Where(m => m.IsPublic)
+                //.Where(m => m.MemberType == MemberTypes.Method)
                 .ToArray();
         }
     }
