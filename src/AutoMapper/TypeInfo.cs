@@ -97,44 +97,52 @@ namespace AutoMapper
 
         private IEnumerable<MemberInfo> GetAllPublicReadableMembers()
         {
-            return GetAllPublicMembers(PropertyReadable, BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty);
+            return GetAllPublicMembers(propertyInfo => propertyInfo.CanRead && propertyInfo.GetMethod.IsPublic);
         }
 
         private IEnumerable<MemberInfo> GetAllPublicWritableMembers()
         {
-            return GetAllPublicMembers(PropertyWritable, BindingFlags.Instance | BindingFlags.Public | BindingFlags.SetProperty);
+            return GetAllPublicMembers(propertyInfo =>
+            {
+                bool propertyIsEnumerable = (typeof(string) != propertyInfo.PropertyType)
+                                            && propertyInfo.PropertyType.GetTypeInfo().IsSubclassOf(typeof(IEnumerable));
+
+                return (propertyInfo.CanWrite) || (propertyIsEnumerable);
+            });
         }
 
-        private bool PropertyReadable(PropertyInfo propertyInfo)
+        private IEnumerable<MemberInfo> GetAllPublicMembers(Func<PropertyInfo, bool> propertyAvailableFor)
         {
-            return propertyInfo.CanRead;
+            Func<Type, IEnumerable<MemberInfo>> memberListBuilder = type =>
+            {
+                var publicProps = type
+                    .GetRuntimeProperties()
+                    .Where(p => !p.GetIndexParameters().Any())
+                    .Where(propertyAvailableFor);
+
+                var publicFields = type
+                    .GetRuntimeFields()
+                    .Where(fi => fi.IsPublic);
+
+                return publicFields
+                    .Cast<MemberInfo>()
+                    .Concat(publicProps);
+            };
+
+            return GetAllAssociatedTypes(Type)
+                .SelectMany(memberListBuilder);
         }
-
-        private bool PropertyWritable(PropertyInfo propertyInfo)
+        
+        private IEnumerable<Type> GetAllAssociatedTypes(Type toScan)
         {
-            bool propertyIsEnumerable = (typeof(string) != propertyInfo.PropertyType)
-                                         && typeof(IEnumerable).IsAssignableFrom(propertyInfo.PropertyType);
-
-            return propertyInfo.CanWrite || propertyIsEnumerable;
-        }
-
-        private IEnumerable<MemberInfo> GetAllPublicMembers(Func<PropertyInfo, bool> propertyAvailableFor, BindingFlags bindingAttr)
-        {
-            var typesToScan = new List<Type>();
             for (var t = Type; t != null; t = t.BaseType)
-                typesToScan.Add(t);
+                yield return t;
 
-            if (Type.IsInterface)
-                typesToScan.AddRange(Type.GetInterfaces());
+            if (!toScan.IsInterface)
+                yield break;
 
-            // Scan all types for public properties and fields
-            return typesToScan
-                .Where(x => x != null) // filter out null types (e.g. type.BaseType == null)
-                .SelectMany(x => x.FindMembers(MemberTypes.Property | MemberTypes.Field,
-                                               bindingAttr,
-                                               (m, f) =>
-                                               m is FieldInfo ||
-                                               (m is PropertyInfo && propertyAvailableFor.Invoke((PropertyInfo)m) && !((PropertyInfo)m).GetIndexParameters().Any()), null));
+            foreach (var type in toScan.GetInterfaces())
+                yield return type;
         }
 
         private MethodInfo[] BuildPublicNoArgMethods()
