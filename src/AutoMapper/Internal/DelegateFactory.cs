@@ -1,10 +1,6 @@
 using System;
 using System.Collections;
-#if !SILVERLIGHT
 using System.Collections.Concurrent;
-#else
-using TvdP.Collections;
-#endif
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -162,7 +158,7 @@ namespace AutoMapper
 
 	    private static DynamicMethod CreateValueTypeDynamicMethod(MemberInfo member, Type sourceType)
 	    {
-#if !SILVERLIGHT
+#if !(SILVERLIGHT || NETFX_CORE)
             if (sourceType.IsInterface)
                 return new DynamicMethod("Set" + member.Name, null, new[] { typeof(object).MakeByRefType(), typeof(object) }, sourceType.Assembly.ManifestModule, true);
 
@@ -177,7 +173,7 @@ namespace AutoMapper
 
 	    private static DynamicMethod CreateDynamicMethod(MemberInfo member, Type sourceType)
 	    {
-#if !SILVERLIGHT
+#if !(SILVERLIGHT || NETFX_CORE)
 	        if (sourceType.IsInterface)
 	            return new DynamicMethod("Set" + member.Name, null, new[] { typeof(object), typeof(object) }, sourceType.Assembly.ManifestModule, true);
 

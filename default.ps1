@@ -9,7 +9,7 @@ properties {
 	$test_dir = "$build_dir\test"
 	$result_dir = "$build_dir\results"
 	$lib_dir = "$base_dir\lib"
-	$pkgVersion = if ($env:build_number -ne $NULL) { $env:build_number } else { '2.2.1' }
+	$pkgVersion = if ($env:build_number -ne $NULL) { $env:build_number } else { '2.3.0' }
 	$version = $pkgVersion -replace "-.*$", ""
 	$buildNumber = $version + '.0'
 	$global:config = "debug"
@@ -47,7 +47,7 @@ task test {
 
 task dist {
 	create_directory $dist_dir
-	copy_files "$build_dir\$config\AutoMapper" "$dist_dir\net40-client"
+	copy_files "$build_dir\$config\AutoMapper" "$dist_dir\net45"
     create-nuspec "$pkgVersion" "AutoMapper.nuspec"
 }
 

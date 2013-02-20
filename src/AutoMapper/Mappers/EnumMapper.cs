@@ -46,7 +46,6 @@ namespace AutoMapper.Mappers
 					return Enum.ToObject(enumDestinationType, context.SourceValue);
                 }
 
-#if !SILVERLIGHT
                 if (!Enum.GetNames(enumDestinationType).Contains(context.SourceValue.ToString()))
                 {
                     Type underlyingSourceType = Enum.GetUnderlyingType(enumSourceType);
@@ -54,7 +53,6 @@ namespace AutoMapper.Mappers
 
                     return Enum.ToObject(context.DestinationType, underlyingSourceValue);
                 }
-#endif
 
 				return Enum.Parse(enumDestinationType, Enum.GetName(enumSourceType, context.SourceValue), true);
             }

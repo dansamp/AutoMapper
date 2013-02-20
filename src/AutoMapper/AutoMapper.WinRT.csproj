@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{77B018A7-3CDE-4E7D-9229-E49B8EDCF3C7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AutoMapper</RootNamespace>
+    <AssemblyName>AutoMapper</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\WinRT\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <None Include="AutoMapper.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AutoMapperConfigurationException.cs" />
+    <Compile Include="AutoMapperMappingException.cs" />
+    <Compile Include="ConfigurationStore.cs" />
+    <Compile Include="Configuration\MapperConfiguration.cs" />
+    <Compile Include="Configuration\MapperRegistry.cs" />
+    <Compile Include="Configuration\TypeMapConfiguration.cs" />
+    <Compile Include="ConstructorMap.cs" />
+    <Compile Include="ConstructorParameterMap.cs" />
+    <Compile Include="IConfigurationProvider.cs" />
+    <Compile Include="IFormatterConfiguration.cs" />
+    <Compile Include="IFormatterExpression.cs" />
+    <Compile Include="IgnoreMapAttribute.cs" />
+    <Compile Include="IMappingAction.cs" />
+    <Compile Include="IMappingEngine.cs" />
+    <Compile Include="IMappingEngineRunner.cs" />
+    <Compile Include="IMappingExpression.cs" />
+    <Compile Include="IMappingOperationOptions.cs" />
+    <Compile Include="IMemberGetter.cs" />
+    <Compile Include="INamingConvention.cs" />
+    <Compile Include="Internal\AliasedMember.cs" />
+    <Compile Include="Internal\DefaultResolver.cs" />
+    <Compile Include="Internal\DeferredInstantiatedConverter.cs" />
+    <Compile Include="Internal\DeferredInstantiatedFormatter.cs" />
+    <Compile Include="Internal\DeferredInstantiatedResolver.cs" />
+    <Compile Include="Internal\DelegateBasedResolver.cs" />
+    <Compile Include="Internal\DelegateBasedResolver2.cs" />
+    <Compile Include="Internal\DelegateFactory.cs" />
+    <Compile Include="Internal\EnumerableExtensions.cs" />
+    <Compile Include="Internal\ExpressionValueFormatter.cs" />
+    <Compile Include="Internal\FieldGetter.cs" />
+    <Compile Include="Internal\FormatterCtorExpression.cs" />
+    <Compile Include="Internal\FormatterExpression.cs" />
+    <Compile Include="Internal\ITypeMapFactory.cs" />
+    <Compile Include="Internal\MappingExpression.cs" />
+    <Compile Include="Internal\MemberGetter.cs" />
+    <Compile Include="Internal\MethodGetter.cs" />
+    <Compile Include="Internal\NullReplacementMethod.cs" />
+    <Compile Include="Internal\PrimitiveExtensions.cs" />
+    <Compile Include="Internal\PropertyGetter.cs" />
+    <Compile Include="Internal\PropertyNameResolver.cs" />
+    <Compile Include="Internal\ProxyBase.cs" />
+    <Compile Include="Internal\ReflectionHelper.cs" />
+    <Compile Include="Internal\ResolutionExpression.cs" />
+    <Compile Include="Internal\TypeMapFactory.cs" />
+    <Compile Include="Internal\TypePair.cs" />
+    <Compile Include="IObjectMapper.cs" />
+    <Compile Include="ITypeConverter.cs" />
+    <Compile Include="IValueFormatter.cs" />
+    <Compile Include="IValueResolver.cs" />
+    <Compile Include="Mapper.cs" />
+    <Compile Include="Mappers\ArrayMapper.cs" />
+    <Compile Include="Mappers\AssignableMapper.cs" />
+    <Compile Include="Mappers\CollectionMapper.cs" />
+    <Compile Include="Mappers\DictionaryMapper.cs" />
+    <Compile Include="Mappers\EnumerableMapper.cs" />
+    <Compile Include="Mappers\EnumerableMapperBase.cs" />
+    <Compile Include="Mappers\EnumMapper.cs" />
+    <Compile Include="Mappers\ExplicitConversionOperatorMapper.cs" />
+    <Compile Include="Mappers\FlagsEnumMapper.cs" />
+    <Compile Include="Mappers\ImplicitConversionOperatorMapper.cs" />
+    <Compile Include="Mappers\ITypeMapObjectMapper.cs" />
+    <Compile Include="Mappers\MapperRegistry.cs" />
+    <Compile Include="Mappers\NullableMapper.cs" />
+    <Compile Include="Mappers\ObjectCreator.cs" />
+    <Compile Include="Mappers\ReadOnlyCollectionMapper.cs" />
+    <Compile Include="Mappers\StringMapper.cs" />
+    <Compile Include="Mappers\TypeHelper.cs" />
+    <Compile Include="Mappers\TypeMapMapper.cs" />
+    <Compile Include="Mappers\TypeMapObjectMapperRegistry.cs" />
+    <Compile Include="MappingEngine.cs" />
+    <Compile Include="MemberList.cs" />
+    <Compile Include="Profile.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyMap.cs" />
+    <Compile Include="QueryableExtensions.cs" />
+    <Compile Include="ResolutionContext.cs" />
+    <Compile Include="ResolutionResult.cs" />
+    <Compile Include="SourceMemberConfig.cs" />
+    <Compile Include="ThreadSafeList.cs" />
+    <Compile Include="TypeInfo.cs" />
+    <Compile Include="TypeMap.cs" />
+    <Compile Include="ValueFormatter.cs" />
+    <Compile Include="ValueResolver.cs" />
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
+    <VisualStudioVersion>11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>AutoMapper.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

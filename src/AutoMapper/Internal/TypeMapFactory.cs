@@ -1,9 +1,5 @@
 using System;
-#if !SILVERLIGHT
 using System.Collections.Concurrent;
-#else
-using TvdP.Collections;
-#endif
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -32,7 +28,7 @@ namespace AutoMapper
                 {
                     var resolvers = members.Select(mi => mi.ToMemberGetter());
                     var destPropertyAccessor = destProperty.ToMemberAccessor();
-#if !SILVERLIGHT
+#if !(SILVERLIGHT || NETFX_CORE)
                     typeMap.AddPropertyMap(destPropertyAccessor, resolvers);
 #else
                     typeMap.AddPropertyMap(destPropertyAccessor, resolvers.Cast<IValueResolver>());

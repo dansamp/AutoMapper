@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace AutoMapper
 {
-#if !SILVERLIGHT
+#if !(SILVERLIGHT || NETFX_CORE)
     [Serializable]
 #endif
     public class AutoMapperConfigurationException : Exception

@@ -7,7 +7,7 @@ namespace AutoMapper.Mappers
     {
         public static Func<IEnumerable<IObjectMapper>> AllMappers = () => new IObjectMapper[]
         {
-#if !SILVERLIGHT
+#if !(SILVERLIGHT || NETFX_CORE)
             new DataReaderMapper(),
 #endif
             new TypeMapMapper(TypeMapObjectMapperRegistry.AllMappers()),
@@ -16,18 +16,20 @@ namespace AutoMapper.Mappers
             new EnumMapper(),
             new ArrayMapper(),
 			new EnumerableToDictionaryMapper(),
-#if !SILVERLIGHT
+#if !(SILVERLIGHT || NETFX_CORE)
             new NameValueCollectionMapper(), 
 #endif
             new DictionaryMapper(),
-#if !SILVERLIGHT
+#if !(SILVERLIGHT || NETFX_CORE)
             new ListSourceMapper(),
 #endif
             new ReadOnlyCollectionMapper(), 
             new CollectionMapper(),
             new EnumerableMapper(),
             new AssignableMapper(),
+#if !(SILVERLIGHT || NETFX_CORE)
             new TypeConverterMapper(),
+#endif
             new NullableSourceMapper(),
             new NullableMapper(),
             new ImplicitConversionOperatorMapper(),

@@ -1,10 +1,8 @@
 using System;
-
-#if !SILVERLIGHT
 using System.Collections.Concurrent;
+
+#if !(SILVERLIGHT || NETFX_CORE)
 using System.Data;
-#else
-using TvdP.Collections;
 #endif
 
 using System.Collections.Generic;
@@ -532,7 +530,7 @@ namespace AutoMapper
 
 	    private static bool ShouldCheckMap(TypeMap typeMap)
 	    {
-#if !SILVERLIGHT
+#if !(SILVERLIGHT || NETFX_CORE)
 	        return typeMap.CustomMapper == null && !typeof(IDataRecord).IsAssignableFrom(typeMap.SourceType);
 #else
             return typeMap.CustomMapper == null;
